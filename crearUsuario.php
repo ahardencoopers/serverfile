@@ -2,6 +2,7 @@
 require_once("myLib/myDb.php"); //Codigo para manejar conexion a base da datos.
 require_once("myLib/myPw.php"); //Codigo para manejo de passwords.
 require_once("myLib/myQuery.php"); //Codigo para manejo de queries. 
+require_once("myLib/myBind.php"); //Codigo para manejo de queries. 
 require_once("myLib/myMisc.php"); //Codigo misc. (Output con newline, crear hyperlinks, etc) 
 
 //Conexion a la base de datos.
@@ -50,11 +51,15 @@ if(!hayVacios($arrTemp))
 		mysqli_stmt_execute($stmtChecarUsuario);
 		mysqli_stmt_bind_result($stmtChecarUsuario, $checarNombre);
 		mysqli_stmt_fetch($stmtChecarUsuario);
+
+		
 	}
 	else
 	{
 		echoLine("Error al checar usuarios");
 	}
+
+	mysqli_stmt_store_result($stmtChecarUsuario);
 
 	//2. Si no hay un usuario con el mismo nombre, crear al usuario.
 	//Query para crear un nuevo usuario en la base de datos.
@@ -84,14 +89,20 @@ if(!hayVacios($arrTemp))
 		if(prepararQuery($queryCrearUsuario, $stmtCrearUsuario, $conexion))
 		{
 			//Pasar valores a y ejecutar query.
-			mysqli_stmt_bind_param($stmtCrearUsuario, "si", $arrDatos[0], $arrDatos[3]);
-			mysqli_stmt_execute($stmtCrearUsuario);
+			/*mysqli_stmt_bind_param($stmtCrearUsuario, "si", $arrDatos[0], $arrDatos[3]);
+			mysqli_stmt_execute($stmtCrearUsuario);*/
+
+			$formatoValoresTemp = "si";
+			prepararBind($stmtCrearUsuario, $formatoValoresTemp, $arrDatos[0], $arrDatos[3]);
+			pasarValores($stmtCrearUsuario, $formatoValoresTemp, $arrDatos[0], $arrDatos[3]);
+			ejecutarQuery($stmtCrearUsuario);
 		}
 		else
 		{
 			echoLine("Error al preparar query.");
 		}
 
+		mysqli_stmt_store_result($stmtCrearUsuario);
 	}
 	else
 	{
@@ -116,6 +127,8 @@ if(!hayVacios($arrTemp))
 		echoLine("Error al obtener id unico del usuario.");
 
 	}
+
+	mysqli_stmt_store_result($stmtObtenerId);
 
 	//Despues de ejecutar una query que regresa un set de resultados,
 	//si no se termina de hacer fetch de todos los resultados del fetch

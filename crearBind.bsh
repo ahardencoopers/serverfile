@@ -1,0 +1,41 @@
+#!/bin/bash
+
+I=1
+
+echo "<?php" > myLib/myBind.php
+echo "function pasarValores(&\$stmtQuery, \$formatoValores, " >> myLib/myBind.php
+
+for arg in $@ 
+do	
+	echo $arg >> myLib/myBind.php
+	I=`expr $I + 1`
+	if [ "$I" -gt "$#" ] 
+	then
+		break
+	fi
+	echo ", " >> myLib/myBind.php
+	
+done
+
+I=1
+
+echo ")" >> myLib/myBind.php 
+printf "" >> myLib/myBind.php 
+echo "{" >> myLib/myBind.php
+echo "mysqli_stmt_bind_param(\$stmtQuery, \$formatoValores, " >> myLib/myBind.php
+
+for arg in $@ 
+do	
+	echo $arg >> myLib/myBind.php
+	I=`expr $I + 1`
+	if [ "$I" -gt "$#" ] 
+	then
+		break
+	fi
+	echo ", " >> myLib/myBind.php
+	
+done
+echo ");" >> myLib/myBind.php 
+printf "" >> myLib/myBind.php 
+echo "}" >> myLib/myBind.php
+echo "?>" >> myLib/myBind.php
