@@ -24,6 +24,7 @@ $conexion = conectarDb();
 //Validar que la forma haya sido enviada con todos los elementos
 //mandando una copia de POST a hayVacios().
 $arrTemp = $_POST;
+$seguirCreandoUsuario = true;
 
 if(!hayVacios($arrTemp))
 {
@@ -45,18 +46,18 @@ if(!hayVacios($arrTemp))
 	//Query para verificar que no haya otro usuario con el mismo nombre.
 	$queryChecarUsuario = "SELECT nombre FROM Usuarios WHERE nombre = ?";
 
-	if(prepararQuery($queryChecarUsuario, $stmtChecarUsuario, $conexion))
+	if(prepararQuery($queryChecarUsuario, $stmtChecarUsuario, $conexion) && $seguirCreandoUsuario)
 	{
 		mysqli_stmt_bind_param($stmtChecarUsuario, "s", $arrDatos[0]);
 		mysqli_stmt_execute($stmtChecarUsuario);
 		mysqli_stmt_bind_result($stmtChecarUsuario, $checarNombre);
 		mysqli_stmt_fetch($stmtChecarUsuario);
 
-		
 	}
 	else
 	{
 		echoLine("Error al checar usuarios");
+		$seguirCreandoUsuario = false;
 	}
 
 	mysqli_stmt_store_result($stmtChecarUsuario);
@@ -86,7 +87,7 @@ if(!hayVacios($arrTemp))
 		$arrDatos[2] = "";
 
 		//Si se logra preparar query, seguir ejecucion para crear usuario.
-		if(prepararQuery($queryCrearUsuario, $stmtCrearUsuario, $conexion))
+		if(prepararQuery($queryCrearUsuario, $stmtCrearUsuario, $conexion) && $seguirCreandoUsuario)
 		{
 			//Pasar valores a y ejecutar query.
 			/*mysqli_stmt_bind_param($stmtCrearUsuario, "si", $arrDatos[0], $arrDatos[3]);
@@ -108,6 +109,7 @@ if(!hayVacios($arrTemp))
 	{
 		echoLine("Las passwords no coinciden o hay un usuario con el mismo nombre. 
 		Vuelve a ingresar los datos");
+		$seguirCreandoUsuario = false;
 	}
 
 	//3. Relacionar password del usuario en la base de datos
@@ -115,7 +117,7 @@ if(!hayVacios($arrTemp))
 	//Query para obtener id unico del usuario con su nombre
 	$queryObtenerId = "SELECT id FROM Usuarios WHERE nombre = ?";
 	
-	if(prepararQuery($queryObtenerId, $stmtObtenerId, $conexion))
+	if(prepararQuery($queryObtenerId, $stmtObtenerId, $conexion) && $seguirCreandoUsuario && $seguirCreandoUsuario)
 	{
 		mysqli_stmt_bind_param($stmtObtenerId, "s", $arrDatos[0]);
 		mysqli_stmt_execute($stmtObtenerId);
@@ -146,7 +148,7 @@ if(!hayVacios($arrTemp))
 	$queryInsertarPassword = "INSERT INTO Passwords (usuarioFK, password) VALUES (?, ?)";
 
 
-	if(prepararQuery($queryInsertarPassword, $stmtInsertarPassword, $conexion))
+	if(prepararQuery($queryInsertarPassword, $stmtInsertarPassword, $conexion) && $seguirCreandoUsuario)
 	{
 		mysqli_stmt_bind_param($stmtInsertarPassword, "is", $idUsuario, $arrDatos[1]);
 		mysqli_stmt_execute($stmtInsertarPassword);
@@ -154,7 +156,6 @@ if(!hayVacios($arrTemp))
 	else
 	{
 		echoLine("Error al Ingresar password en la base de datos");
-		var_dump($stmtInsertarPassword);
 	}
 
 }
