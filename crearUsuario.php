@@ -2,7 +2,6 @@
 require_once("myLib/myDb.php"); //Codigo para manejar conexion a base da datos.
 require_once("myLib/myPw.php"); //Codigo para manejo de passwords.
 require_once("myLib/myQuery.php"); //Codigo para manejo de queries. 
-require_once("myLib/myBind.php"); //Codigo para manejo de queries. 
 require_once("myLib/myMisc.php"); //Codigo misc. (Output con newline, crear hyperlinks, etc) 
 
 //Conexion a la base de datos.
@@ -90,13 +89,8 @@ if(!hayVacios($arrTemp))
 		if(prepararQuery($queryCrearUsuario, $stmtCrearUsuario, $conexion) && $seguirCreandoUsuario)
 		{
 			//Pasar valores a y ejecutar query.
-			/*mysqli_stmt_bind_param($stmtCrearUsuario, "si", $arrDatos[0], $arrDatos[3]);
-			mysqli_stmt_execute($stmtCrearUsuario);*/
-
-			$formatoValoresTemp = "si";
-			prepararBind($stmtCrearUsuario, $formatoValoresTemp, $arrDatos[0], $arrDatos[3]);
-			pasarValores($stmtCrearUsuario, $formatoValoresTemp, $arrDatos[0], $arrDatos[3]);
-			ejecutarQuery($stmtCrearUsuario);
+			mysqli_stmt_bind_param($stmtCrearUsuario, "si", $arrDatos[0], $arrDatos[3]);
+			mysqli_stmt_execute($stmtCrearUsuario);
 		}
 		else
 		{
@@ -117,7 +111,7 @@ if(!hayVacios($arrTemp))
 	//Query para obtener id unico del usuario con su nombre
 	$queryObtenerId = "SELECT id FROM Usuarios WHERE nombre = ?";
 	
-	if(prepararQuery($queryObtenerId, $stmtObtenerId, $conexion) && $seguirCreandoUsuario && $seguirCreandoUsuario)
+	if(prepararQuery($queryObtenerId, $stmtObtenerId, $conexion)  && $seguirCreandoUsuario)
 	{
 		mysqli_stmt_bind_param($stmtObtenerId, "s", $arrDatos[0]);
 		mysqli_stmt_execute($stmtObtenerId);
@@ -127,10 +121,9 @@ if(!hayVacios($arrTemp))
 	else
 	{
 		echoLine("Error al obtener id unico del usuario.");
+		$seguirCreandoUsuario = false;
 
 	}
-
-	mysqli_stmt_store_result($stmtObtenerId);
 
 	//Despues de ejecutar una query que regresa un set de resultados,
 	//si no se termina de hacer fetch de todos los resultados del fetch
@@ -152,6 +145,7 @@ if(!hayVacios($arrTemp))
 	{
 		mysqli_stmt_bind_param($stmtInsertarPassword, "is", $idUsuario, $arrDatos[1]);
 		mysqli_stmt_execute($stmtInsertarPassword);
+		echoLine("Sign up exitoso, bienvenido $arrDatos[0]");
 	}
 	else
 	{

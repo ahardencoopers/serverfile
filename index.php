@@ -15,7 +15,11 @@ echo <<<OUT
 OUT;
 
 //Codigo de PHP con HTML
+echo <<<OUT
 
+<a href="crearUsuario.php">Sign Up</a>
+
+OUT;
 
 //Cerrar encabezado de body y html 
 echo <<<OUT
