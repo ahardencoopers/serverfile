@@ -146,6 +146,8 @@ if(!hayVacios($arrTemp))
 		mysqli_stmt_bind_param($stmtInsertarPassword, "is", $idUsuario, $arrDatos[1]);
 		mysqli_stmt_execute($stmtInsertarPassword);
 		echoLine("Sign up exitoso, bienvenido $arrDatos[0]");
+		$loginUrl = "iniciarSesion.php";
+		echoLine("Pasar a <a href=$loginUrl>Log in</a>");
 	}
 	else
 	{

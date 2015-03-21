@@ -17,7 +17,8 @@ OUT;
 //Codigo de PHP con HTML
 echo <<<OUT
 
-<a href="crearUsuario.php">Sign Up</a>
+<a href="crearUsuario.php">Sign up</a>
+<a href="iniciarSesion.php">Log in </a>
 
 OUT;
 
