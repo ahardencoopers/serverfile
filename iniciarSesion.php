@@ -82,6 +82,7 @@ if(!hayVacios($arrTemp))
 
 			haySesion();
 			iniciarSesion($nombreUsuario, $hashUsuario, $idUsuario);
+			var_dump($_SESSION);
 
 			$url = "fileHome.php";
 			header("Location: ".$url);
