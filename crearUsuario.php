@@ -27,7 +27,7 @@ $seguirCreandoUsuario = true;
 
 if(!hayVacios($arrTemp))
 {
-	//Usur la funcion convertirArreglo
+	//Usar la funcion convertirArreglo
 	//para cargar los datos de $_POST a un arreglo
 	//tradicional (indices ordenados ascendetes empezando
 	//en 0) para no tener que declarar multiples

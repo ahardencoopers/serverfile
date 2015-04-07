@@ -31,7 +31,7 @@ if($_FILES['archivo']['name'])
 	}
 	else
 	{
-		echoLine("Error al subir archivo php");
+		echoLine("Error al subir archivo al servidor");
 	}
 }
 
