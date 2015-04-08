@@ -70,57 +70,117 @@ if(validarSesion())
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
+		<meta charset="utf-8">
+		<title>serverfile</title>
+		<meta name="viewport" content="width=device-width, initial scale=1.0">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/custom.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/dotted.css">
 	</head>
-	<body>
+	<body class="dotted">
 OUT;
-	//Funcion para crear mensaje de bienvenido.
-	//myMisc.php
-	bienvenido($nombreUsuario);
-	//Funcion para crear forma de logout
-	//mySession.php
-	crearLogout("fileHome.php");
 
-	//Forma para subir archivos.
-	//myFile.php
-	crearFormaArchivo("fileHome.php");
-	echoLine("");
+echo <<<OUT
+<div class="container-fluid img-rounded">
 
-	//Forma para crear directorios
-	//myFile.php
-	crearFormaDirectorio("fileHome.php");
-	echoLine("");
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<h1>Bienvenido, $nombreUsuario </h1>
+			<form action="fileHome.php">
+				<input type="hidden" name="logout" value="true">
+				<input class="btn-link" type="submit" name="submitLogout" value="Cerrar sesion">
+			</form>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-6">
+			<h2>Subir Archivo</h2>
+			<form action="fileHome.php" method="post" enctype="multipart/form-data">
+
+				<div class="form-group">
+					<label for="archivo"> Escoger Archivo: </label>
+					<input class="btn btn-file btn-default" type="file" name="archivo" size="25" />
+				</div>
+
+				<div class="form-group">
+					<label for="descArchivo"> Descripcion: </label>
+					<input class="form-control" type="text" name="descArchivo" size="25">
+				</div>
+
+				<div class="form-group">
+					<label for="visiArchivo"> Visibilidad: </label> 
+
+					<fieldset class="btn">
+						<input type="radio" name="visiArchivo" value="publico">Publico
+						<input type="radio" name="visiArchivo" value="privado">Privado
+					</fieldset>
+				</div>
+
+				<input class="btn btn-primary" type="submit" name="subirArchivo" value="Subir Archivo">
+			</form>
+		</div>
+
+		<div class="col-xs-6">
+			<h2>Crear Carpeta</h2>
+
+			<form action="fileHome.php" method="post">
+				<div class="form-group">
+					<label for="nombreDirectorio"> Nombre de carpeta: </label>
+					<input class="form-control" type="text" name="nombreDirectorio" size="25"/>
+				</div>
+
+				<input class="btn btn-primary" type="submit" name="crearCarpeta" value="Crear Carpeta">
+			</form>
+		</div>
+
+	</div>
+</div>
 
 
+
+OUT;
 
 	//Cerrar encabezado de body y html.
-	echo <<<OUT
-	</body>
-	</html>
+echo <<<OUT
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
 OUT;
 
 }
 else	//HTML Para sesion invalida.
 {
 	//Abrir encabezado de body y html
-	echo <<<OUT
+echo <<<OUT
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
+		<meta charset="utf-8">
+		<title>serverfile</title>
+		<meta name="viewport" content="width=device-width, initial scale=1.0">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/custom.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/dotted.css">
+
 	</head>
 	<body>
 OUT;
 
 	//Codigo de PHP con HTML.
 	//Forma para ingresar nuevo usuario y password.
-	echo <<<OUT
+echo <<<OUT
 	<h1>Sesion invalida</h1>
 	<p><a href="iniciarSesion.php">Volver a log in<a/></p>
 OUT;
 
 	//Cerrar encabezado de body y html.
-	echo <<<OUT
-	</body>
-	</html>
+echo <<<OUT
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
 OUT;
 }
 

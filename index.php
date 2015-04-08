@@ -32,11 +32,8 @@ echo <<<OUT
 	</div>
 
 	<div class="row">
-		<div class="col-xs-4 center-block"> 
-			<button type="button" class="btn btn-primary btn-block">
-				Log in
-				<a href="iniciarSesion.php"></a>
-			</button>
+		<div class="col-xs-2 center-block"> 
+			<a href="iniciarSesion.php" class="btn btn-primary btn-block">Log in</a>
 		 </div>
 
 
@@ -44,11 +41,8 @@ echo <<<OUT
 	</div>
 
 	<div class="row">
-		<div class="col-xs-4 center-block"> 
-			<button type="button" class="btn btn-block">
-				Sign up
-				<a href="crearUsuario.php"></a>
-			</button>
+		<div class="col-xs-2 center-block"> 
+			<a href="crearUsuario.php" class="btn btn-default btn-block">Sign up</a>
 		 </div>
 	</div>
 

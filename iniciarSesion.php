@@ -107,25 +107,64 @@ echo <<<OUT
 <!DOCTYPE html>
 <html lang="en">
   <head>
+	<meta charset="utf-8">
+	<title>serverfile</title>
+	<meta name="viewport" content="width=device-width, initial scale=1.0">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/custom.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/dotted.css">
   </head>
-  <body>
+  <body class="dotted">
 OUT;
 
 //Codigo de PHP con HTML.
 
 //Forma para ingresar nuevo usuario y password.
 echo <<<OUT
-<form action="iniciarSesion.php" method="post">
-	Nombre de usuario: <input type="text" name="nuevoUsuario">
-	<br>
-	Password: <input type="password" name="nuevoPassword">
-	<br>
-	<input type="submit" name="submitUsuario">
-</form>
+
+<div class="container-fluid img-rounded">
+
+<div class="row">
+	<div class="col-xs-12 text-center">
+		<h1>Log In</h1>
+	</div>
+</div>
+
+
+	<form action="iniciarSesion.php" method="post">
+		<div class="form-group">
+			<label for="nuevoUsuario"> Nombre de usuario: </label>
+			<input class="form-control" type="text" name="nuevoUsuario">
+		</div>
+
+		<div class="form-group">
+			<label for="nuevoPassword"> Password: </label>
+			<input class="form-control" type="password" name="nuevoPassword">
+		</div>
+
+		<input class="btn btn-primary" value="Log in" type="submit" name="submitUsuario">
+	</form>
+
+
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<div class="footer text-center">
+				<p>ahardencoopers@gmail.com</p>
+				<p><a href="https://github.com/ahardencoopers/serverfile">https://github.com/ahardencoopers/serverfile</p>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+
 OUT;
 
 //Cerrar encabezado de body y html.
 echo <<<OUT
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
   </body>
 </html>
 OUT;
