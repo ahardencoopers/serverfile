@@ -1,0 +1,18 @@
+html body
+{
+	height: 100%;
+	background-color: #EBEBEB;
+}
+
+.container
+{
+	background-color: #F6F6F6;
+	height: 100%;
+	
+}
+
+
+.btn 
+{
+	margin: 2px;
+}
