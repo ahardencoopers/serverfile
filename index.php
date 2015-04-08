@@ -23,7 +23,7 @@ OUT;
 //Codigo de PHP con HTML
 echo <<<OUT
 
-<div class="container img-rounded">
+<div class="container-fluid img-rounded myContainer">
 
 	<div class="row">
 		<div class="col-xs-12 text-center"> 
@@ -31,8 +31,8 @@ echo <<<OUT
 		 </div>
 	</div>
 
-	<div class="row">
-		<div class="col-xs-2 col-xs-offset-5 text-center"> 
+	<div class="row-fluid">
+		<div class="col-xs-4 col-xs-offset-2 text-center"> 
 			<button type="button" class="btn btn-primary btn-block">
 				Log in
 				<a href="iniciarSesion.php"></a>
@@ -40,8 +40,8 @@ echo <<<OUT
 		 </div>
 	</div>
 
-	<div class="row">
-		<div class="col-xs-2 col-xs-offset-5 text-center"> 
+	<div class="row-fluid">
+		<div class="col-xs-4 text-center"> 
 			<button type="button" class="btn btn-block">
 				Sign up
 				<a href="crearUsuario.php"></a>

@@ -4,15 +4,12 @@ html body
 	background-color: #EBEBEB;
 }
 
-.container
+.container-fluid
 {
 	background-color: #F6F6F6;
-	height: 100%;
-	
 }
 
-
-.btn 
+.btn
 {
 	margin: 2px;
 }
