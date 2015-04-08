@@ -23,7 +23,7 @@ OUT;
 //Codigo de PHP con HTML
 echo <<<OUT
 
-<div class="container-fluid img-rounded myContainer">
+<div class="container-fluid img-rounded">
 
 	<div class="row">
 		<div class="col-xs-12 text-center"> 
@@ -31,27 +31,36 @@ echo <<<OUT
 		 </div>
 	</div>
 
-	<div class="row-fluid">
-		<div class="col-xs-4 col-xs-offset-2 text-center"> 
+	<div class="row">
+		<div class="col-xs-4 center-block"> 
 			<button type="button" class="btn btn-primary btn-block">
 				Log in
 				<a href="iniciarSesion.php"></a>
 			</button>
 		 </div>
+
+
+
 	</div>
 
-	<div class="row-fluid">
-		<div class="col-xs-4 text-center"> 
+	<div class="row">
+		<div class="col-xs-4 center-block"> 
 			<button type="button" class="btn btn-block">
 				Sign up
 				<a href="crearUsuario.php"></a>
 			</button>
 		 </div>
 	</div>
-	
 
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<div class="footer text-center">
+				<p>ahardencoopers@gmail.com</p>
+				<p><a href="https://github.com/ahardencoopers/serverfile">https://github.com/ahardencoopers/serverfile</p>
 
-
+			</div>
+		</div>
+	</div>
 </div>
 
 
