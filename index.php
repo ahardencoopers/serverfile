@@ -11,23 +11,57 @@ echo <<<OUT
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Basic HTML File</title>
+		<title>serverfile</title>
 		<meta name="viewport" content="width=device-width, initial scale=1.0">
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/custom.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/dotted.css">
 	</head>
-<body>
+<body class="dotted">
 OUT;
 
 //Codigo de PHP con HTML
 echo <<<OUT
 
-<a href="crearUsuario.php">Sign up</a>
-<a href="iniciarSesion.php">Log in </a>
+<div class="container img-rounded">
+
+	<div class="row">
+		<div class="col-xs-12 text-center"> 
+			<h1>serverfile</h1>
+		 </div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2 col-xs-offset-5 text-center"> 
+			<button type="button" class="btn btn-primary btn-block">
+				Log in
+				<a href="iniciarSesion.php"></a>
+			</button>
+		 </div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2 col-xs-offset-5 text-center"> 
+			<button type="button" class="btn btn-block">
+				Sign up
+				<a href="crearUsuario.php"></a>
+			</button>
+		 </div>
+	</div>
+	
+
+
+
+</div>
+
+
+OUT;
+
+//Javascript para bootstrap
+echo <<<OUT
+
 <script src="http://code.jquery.com/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
-
-
 
 OUT;
 
