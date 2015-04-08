@@ -12,6 +12,8 @@ $conexion = conectarDb();
 //Checar si hay una sesion iniciada, si no, iniciarla 
 haySesion();
 
+
+
 //Manejo de logout
 //Si la sesion es valida, hacer llamada a funcion de mySession.php terminarSesion(),
 if($_POST['logout'] == "true" && validarSesion())
@@ -63,7 +65,6 @@ if(validarSesion())
 	$hashUsuario = $_SESSION["hash"];
 	$idUsuario = $_SESSION["id"];
 
-	$mensaje = "Bienvenido, ".$nombreUsuario;
 	//1.a.
 	//Abrir encabezado de body y html.
 	echo <<<OUT
@@ -86,7 +87,7 @@ echo <<<OUT
 	<div class="row">
 		<div class="col-xs-12 text-center">
 			<h1>Bienvenido, $nombreUsuario </h1>
-			<form action="fileHome.php">
+			<form action="fileHome.php" method="post">
 				<input type="hidden" name="logout" value="true">
 				<input class="btn-link" type="submit" name="submitLogout" value="Cerrar sesion">
 			</form>
