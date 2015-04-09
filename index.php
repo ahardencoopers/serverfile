@@ -32,16 +32,13 @@ echo <<<OUT
 	</div>
 
 	<div class="row">
-		<div class="col-xs-2 center-block"> 
+		<div class="col-xs-5 center-block"> 
 			<a href="iniciarSesion.php" class="btn btn-primary btn-block">Log in</a>
 		 </div>
-
-
-
 	</div>
 
 	<div class="row">
-		<div class="col-xs-2 center-block"> 
+		<div class="col-xs-5 center-block"> 
 			<a href="crearUsuario.php" class="btn btn-default btn-block">Sign up</a>
 		 </div>
 	</div>

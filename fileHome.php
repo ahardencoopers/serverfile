@@ -101,7 +101,7 @@ echo <<<OUT
 
 				<div class="form-group">
 					<label for="archivo"> Escoger Archivo: </label>
-					<input class="btn btn-file btn-default" type="file" name="archivo" size="25" />
+					<input class="btn btn-file btn-default" type="file" name="archivo"/>
 				</div>
 
 				<div class="form-group">
@@ -111,9 +111,10 @@ echo <<<OUT
 
 				<div class="form-group">
 					<label for="visiArchivo"> Visibilidad: </label> 
-
+					<br>
 					<fieldset class="btn">
 						<input type="radio" name="visiArchivo" value="publico">Publico
+						<br>
 						<input type="radio" name="visiArchivo" value="privado">Privado
 					</fieldset>
 				</div>
