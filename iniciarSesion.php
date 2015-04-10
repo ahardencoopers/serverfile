@@ -146,7 +146,7 @@ echo <<<OUT
 	</form>
 
 
-	<div class="row">
+	<div class="row-fluid">
 		<div class="col-xs-12 text-center">
 			<div class="footer text-center">
 				<p>ahardencoopers@gmail.com</p>

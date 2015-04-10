@@ -137,6 +137,16 @@ echo <<<OUT
 		</div>
 
 	</div>
+
+	<div class="row-fluid">
+		<div class="col-xs-12 text-center">
+			<div class="footer text-center">
+				<p>ahardencoopers@gmail.com</p>
+				<p><a href="https://github.com/ahardencoopers/serverfile">https://github.com/ahardencoopers/serverfile</p>
+			</div>
+		</div>
+	</div>
+
 </div>
 
 
