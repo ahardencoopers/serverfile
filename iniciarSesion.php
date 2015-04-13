@@ -4,6 +4,7 @@ require_once("myLib/myPw.php"); //Codigo para manejo de passwords.
 require_once("myLib/myQuery.php"); //Codigo para manejo de queries. 
 require_once("myLib/myMisc.php"); //Codigo misc. (Output con newline, crear hyperlinks, etc). 
 require_once("myLib/mySession.php"); //Codigo para manejo de sesiones. 
+require_once("myLib/myUser.php"); //Codigo para manejo de usuario. 
 
 //Conexion a la base de datos.
 $conexion = conectarDb();
@@ -19,7 +20,7 @@ $conexion = conectarDb();
 //Validar que la forma haya sido enviada con todos los elementos
 //mandando una copia de POST a hayVacios().
 $arrTemp = $_POST;
-$seguirIniciandoSesion = true;
+$seguirIniciandoSesion = false;
 
 if(!hayVacios($arrTemp))
 {
@@ -34,67 +35,27 @@ if(!hayVacios($arrTemp))
         //0 => Nombre de Usuario
         //1 => Password
         convertirArreglo($arrTemp, $arrDatos);
-	
 
 	//1.
-	$queryChecarUsuario = "SELECT nombre,id FROM Usuarios WHERE nombre = ?";
+	$nombreUsuario = "";
+	$idUsuario = "";
+	$hashUsuario = "";
 
-	if(prepararQuery($queryChecarUsuario, $stmtChecarUsuario, $conexion))
+	if(existeUsuario($arrDatos, $checarNombre, $checarId))
 	{
-		mysqli_stmt_bind_param($stmtChecarUsuario, "s", $arrDatos[0]);
-                mysqli_stmt_execute($stmtChecarUsuario);
-                mysqli_stmt_bind_result($stmtChecarUsuario, $checarNombre, $checarId);
-                mysqli_stmt_fetch($stmtChecarUsuario);	
-
-		if($arrDatos[0] == $checarNombre)
-		{
-			$nombreUsuario = $checarNombre;
-			$idUsuario = $checarId;
-		}
-		else
-		{
-			$seguirIniciandoSesion = false;
-		}
-
-	}
-	else
-	{
-		$seguirIniciandoSesion = false;
+		$nombreUsuario = $checarNombre;
+		$idUsuario = $checarId;
+		$seguirIniciandoSesion = true;
 	}
 
-	//Purgar resultados
-	mysqli_stmt_store_result($stmtChecarUsuario);	
-
-	//2.
-	$queryChecarPassword = "SELECT password FROM Passwords WHERE usuarioFK = ?";
-	
-	if(prepararQuery($queryChecarPassword, $stmtChecarPassword, $conexion))
+	if(existePassword($arrDatos, $hashUsuario) && $seguirIniciandoSesion)
 	{
-		mysqli_stmt_bind_param($stmtChecarPassword, "i",  $idUsuario);
-	        mysqli_stmt_execute($stmtChecarPassword);
-	        mysqli_stmt_bind_result($stmtChecarPassword, $checarPassword);
-	        mysqli_stmt_fetch($stmtChecarPassword);
-	
-		//3.
-		if(password_verify($arrDatos[1], $checarPassword))
-		{
-			$hashUsuario = $checarPassword;
-
-			haySesion();
-			iniciarSesion($nombreUsuario, $hashUsuario, $idUsuario);
-			var_dump($_SESSION);
-
-			$url = "fileHome.php";
-			header("Location: ".$url);
-			exit;
-		}
-		else
-		{
-			echoLine("Credenciales invalidas");
-		}
-
-		mysqli_stmt_store_result($stmtChecarUsuario);	
-
+		haySesion();
+		iniciarSesion($nombreUsuario, $hashUsuario, $idUsuario);
+		
+		$url = "fileHome.php";
+		header("Location: ".$url);
+		exit;
 	}
 }
 else
