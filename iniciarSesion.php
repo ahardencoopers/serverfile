@@ -24,7 +24,7 @@ $seguirIniciandoSesion = false;
 
 if(!hayVacios($arrTemp))
 {
-        //Usur la funcion convertirArreglo
+        //Usar la funcion convertirArreglo
         //para cargar los datos de $_POST a un arreglo
         //tradicional (indices ordenados ascendetes empezando
         //en 0) para no tener que declarar multiples
@@ -35,7 +35,6 @@ if(!hayVacios($arrTemp))
         //0 => Nombre de Usuario
         //1 => Password
         convertirArreglo($arrTemp, $arrDatos);
-
 	//1.
 	$nombreUsuario = "";
 	$idUsuario = "";
@@ -48,7 +47,7 @@ if(!hayVacios($arrTemp))
 		$seguirIniciandoSesion = true;
 	}
 
-	if(existePassword($arrDatos, $hashUsuario) && $seguirIniciandoSesion)
+	if(existePassword($arrDatos, $hashUsuario, $idUsuario) && $seguirIniciandoSesion)
 	{
 		haySesion();
 		iniciarSesion($nombreUsuario, $hashUsuario, $idUsuario);
