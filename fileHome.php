@@ -100,6 +100,12 @@ echo <<<OUT
 				<input class="btn-link" type="submit" name="submitLogout" value="Cerrar sesion">
 			</form>
 		</div>
+
+		<div class="row-fluid">
+			<div class="col-xs-12 text-center">
+				<h2><a href="archivosRoot"> Ver todos los archivos</a> </h2>
+			</div>
+		</div>
 	</div>
 
 	<div class="row">
@@ -162,6 +168,8 @@ echo <<<OUT
 		</div>
 
 	</div>
+
+
 
 	<div class="row-fluid">
 		<div class="col-xs-12 text-center">
