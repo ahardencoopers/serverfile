@@ -39,14 +39,22 @@ if($_FILES['archivo']['name'])
 
 //Manejo para crear directorios
 //Si se llena y se entrega la forma para crear un directorio
-//1. Se se crea y se muestra el path donde se creo el directorio 
+//1. Se crea y se muestra el path donde se creo el directorio 
 if($_POST['nombreDirectorio'] != "")
 {
 	$path = "";
 	//Funcion para crear un directorio en la carpeta actual indicada por $path
 	//myFile.php
 	subirDirectorio($path);
-	echoLine("Se ha creado con exito el directorio en: archivosRoot/".$path.$_POST['nombreDirectorio']);
+	$creoDirectorio = subirArchivo();
+	if($creoDirectorio)
+	{
+		echoLine("Se ha creado con exito el directorio en: archivosRoot/".$path.$_POST['nombreDirectorio']);
+	}
+	else
+	{
+		echoLine("No se pudo crear directorio en: archivosRoot/".$path.$_POST['nombreDirectorio']);
+	}
 }
 
 
@@ -131,6 +139,23 @@ echo <<<OUT
 					<label for="nombreDirectorio"> Nombre de carpeta: </label>
 					<input class="form-control" type="text" name="nombreDirectorio" size="25"/>
 				</div>
+
+				<div class="form-group">
+					<label for="descArchivo"> Descripcion: </label>
+					<input class="form-control" type="text" name="descArchivo" size="25">
+				</div>
+
+				<div class="form-group">
+					<label for="visiArchivo"> Visibilidad: </label> 
+					<br>
+					<fieldset class="btn">
+						<input type="radio" name="visiArchivo" value="publico">Publico
+						<br>
+						<input type="radio" name="visiArchivo" value="privado">Privado
+					</fieldset>
+				</div>
+
+				<input type="hidden" name="crearDirectorio" value="true">
 
 				<input class="btn btn-primary" type="submit" name="crearCarpeta" value="Crear Carpeta">
 			</form>
