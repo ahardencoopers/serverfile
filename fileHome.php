@@ -5,6 +5,7 @@ require_once("myLib/myQuery.php"); //Codigo para manejo de queries.
 require_once("myLib/myMisc.php"); //Codigo misc. (Output con newline, crear hyperlinks, etc) 
 require_once("myLib/mySession.php"); //Codigo para manejo de sesiones.  
 require_once("myLib/myFile.php"); //Codigo para manejo de archivos remotos
+require_once("myLib/myFs.php"); //Codigo para manejo de sistema de archivos. 
 
 //Conexion a la base de datos.
 $conexion = conectarDb();
@@ -12,7 +13,8 @@ $conexion = conectarDb();
 //Checar si hay una sesion iniciada, si no, iniciarla 
 haySesion();
 
-
+//Inicializar directorio
+iniciarDirectorio();
 
 //Manejo de logout
 //Si la sesion es valida, hacer llamada a funcion de mySession.php terminarSesion(),
@@ -57,6 +59,11 @@ if($_POST['nombreDirectorio'] != "")
 	}
 }
 
+if($_POST['nuevoDirectorio'] != "" && validarSesion())
+{
+	cambiarDirectorio($_POST['nuevoDirectorio']);
+}
+
 
 //Manejo de sitio
 //1. Si la sesion es valida, cargar credenciales de usuario 
@@ -73,9 +80,13 @@ if(validarSesion())
 	$hashUsuario = $_SESSION["hash"];
 	$idUsuario = $_SESSION["id"];
 
+	//Inicializar directorio
+	$directorioActual = $_SESSION["directorioActual"];
+	echoLine("fileHome");
+	echoLine($directorioActual);
 	//1.a.
 	//Abrir encabezado de body y html.
-	echo <<<OUT
+echo <<<OUT
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -170,6 +181,19 @@ echo <<<OUT
 	</div>
 
 
+	<div class="row">
+		<div class = "col-xs-12">
+			<h1>Archivos en: $directorioActual</h1>	
+		
+OUT;
+
+	mostrarArchivos();
+
+echo <<<OUT
+			</table>
+		</div>
+	</div>
+
 
 	<div class="row-fluid">
 		<div class="col-xs-12 text-center">
@@ -180,11 +204,11 @@ echo <<<OUT
 		</div>
 	</div>
 
+
 </div>
 
-
-
 OUT;
+
 
 	//Cerrar encabezado de body y html.
 echo <<<OUT

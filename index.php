@@ -1,9 +1,13 @@
 <?php
 require_once("myLib/myDb.php"); //Codigo para manejar conexion a base da datos.
 require_once("myLib/myPw.php"); //Codigo para manejo de passwords.
+require_once("myLib/myFs.php"); //Codigo para manejo de passwords.
 
 //Conexion a la base de datos
 $conexion = conectarDb();
+
+//Inicializar directorio
+iniciarDirectorio();
 
 //Abrir encabezado de body y html
 echo <<<OUT
