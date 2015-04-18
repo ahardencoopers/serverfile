@@ -13,8 +13,6 @@ $conexion = conectarDb();
 //Checar si hay una sesion iniciada, si no, iniciarla 
 haySesion();
 
-//Inicializar directorio
-iniciarDirectorio();
 
 //Manejo de logout
 //Si la sesion es valida, hacer llamada a funcion de mySession.php terminarSesion(),
@@ -64,6 +62,11 @@ if($_POST['nuevoDirectorio'] != "" && validarSesion())
 	cambiarDirectorio($_POST['nuevoDirectorio']);
 }
 
+if($_POST['regresarDirectorio'] == "true")
+{
+	cambiarDirectorio("..");
+}
+
 
 //Manejo de sitio
 //1. Si la sesion es valida, cargar credenciales de usuario 
@@ -82,8 +85,6 @@ if(validarSesion())
 
 	//Inicializar directorio
 	$directorioActual = $_SESSION["directorioActual"];
-	echoLine("fileHome");
-	echoLine($directorioActual);
 	//1.a.
 	//Abrir encabezado de body y html.
 echo <<<OUT
@@ -110,12 +111,6 @@ echo <<<OUT
 				<input type="hidden" name="logout" value="true">
 				<input class="btn-link" type="submit" name="submitLogout" value="Cerrar sesion">
 			</form>
-		</div>
-
-		<div class="row-fluid">
-			<div class="col-xs-12 text-center">
-				<h2><a href="archivosRoot"> Ver todos los archivos</a> </h2>
-			</div>
 		</div>
 	</div>
 
@@ -184,6 +179,12 @@ echo <<<OUT
 	<div class="row">
 		<div class = "col-xs-12">
 			<h1>Archivos en: $directorioActual</h1>	
+
+			<form action="fileHome.php" class="left-link important-link" method="post">
+				<input type="hidden" name="regresarDirectorio" value="true">
+				<input class="btn-link" type="submit" name="submitRegresar" value="Regresar una carpeta">
+			</form>
+
 		
 OUT;
 

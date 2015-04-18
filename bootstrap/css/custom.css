@@ -23,3 +23,14 @@ input
 {
 	margin: 2px;
 }
+
+.left-link
+{
+	float:left;
+}
+
+.important-link
+{
+	font-size: 150%;
+	
+}

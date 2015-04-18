@@ -5,6 +5,7 @@ require_once("myLib/myQuery.php"); //Codigo para manejo de queries.
 require_once("myLib/myMisc.php"); //Codigo misc. (Output con newline, crear hyperlinks, etc). 
 require_once("myLib/mySession.php"); //Codigo para manejo de sesiones. 
 require_once("myLib/myUser.php"); //Codigo para manejo de usuario. 
+require_once("myLib/myFs.php"); //Codigo para manejo de usuario. 
 
 //Conexion a la base de datos.
 $conexion = conectarDb();
@@ -51,6 +52,8 @@ if(!hayVacios($arrTemp))
 	{
 		haySesion();
 		iniciarSesion($nombreUsuario, $hashUsuario, $idUsuario);
+		iniciarDirectorio();
+		
 		
 		$url = "fileHome.php";
 		header("Location: ".$url);
