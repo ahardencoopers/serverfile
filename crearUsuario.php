@@ -5,6 +5,8 @@ require_once("myLib/myQuery.php"); //Codigo para manejo de queries.
 require_once("myLib/myMisc.php"); //Codigo misc. (Output con newline, crear hyperlinks, etc) 
 require_once("myLib/myUser.php"); //Codigo para manejo de usuarios en la base de datos. 
 
+noExpire();
+
 //Conexion a la base de datos.
 $conexion = conectarDb();
 

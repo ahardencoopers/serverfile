@@ -7,6 +7,8 @@ require_once("myLib/mySession.php"); //Codigo para manejo de sesiones.
 require_once("myLib/myFile.php"); //Codigo para manejo de archivos remotos
 require_once("myLib/myFs.php"); //Codigo para manejo de sistema de archivos. 
 
+noExpire();
+
 //Conexion a la base de datos.
 $conexion = conectarDb();
 

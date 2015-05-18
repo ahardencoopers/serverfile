@@ -7,6 +7,8 @@ require_once("myLib/mySession.php"); //Codigo para manejo de sesiones.
 require_once("myLib/myUser.php"); //Codigo para manejo de usuario. 
 require_once("myLib/myFs.php"); //Codigo para manejo de usuario. 
 
+noExpire();
+
 //Conexion a la base de datos.
 $conexion = conectarDb();
 
