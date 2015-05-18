@@ -67,11 +67,59 @@ else if($_POST['submitEditarArchivo'] == "Actualizar Archivo" && validarSesion()
 
 	mysqli_stmt_store_result($stmtEditarArchivo);
 }
-else
+else if($_POST['submitBorrarArchivo'] == "Borrar Archivo" )
 {
-    $editarArchivo = "No se ha seleccionado ningun archivo.";
-}
+	$directorioActual = $_SESSION['directorioActual'];
+	$borrarArchivo = $_POST['nombreOriginal'];
+	$tipoArchivo = $_POST['tipoArchivo'];
 
+	if($tipoArchivo == "dir")
+	{
+			$queryBorrarArchivo = "DELETE FROM Archivos WHERE nombre LIKE ? OR path LIKE ?;";
+			if(prepararQuery($queryBorrarArchivo, $stmtBorrarArchivo, $conexion))
+			{
+				$stringComando = "rm -R ".$directorioActual.$borrarArchivo;
+				exec($stringComando);
+
+				$borrarArchivo = "%".$borrarArchivo."%";
+				mysqli_stmt_bind_param($stmtBorrarArchivo, "ss", $borrarArchivo, $borrarArchivo);
+				mysqli_stmt_execute($stmtBorrarArchivo);
+				mysqli_stmt_store_result($stmtEditarArchivo);
+
+				echoLine("Se ha borrado el archivo ".$borrarArchivo." exitosamente.");
+			}
+			else
+			{
+				echoLine("Error al borrar archivo ".$borrarArchivo);
+			}
+
+	}
+	else if($tipoArchivo != "dir")
+	{
+		$queryBorrarArchivo = "DELETE FROM Archivos WHERE nombre LIKE ?;";
+		if(prepararQuery($queryBorrarArchivo, $stmtBorrarArchivo, $conexion))
+		{
+			$stringComando = "rm -R ".$directorioActual.$borrarArchivo;
+			exec($stringComando);
+
+			$borrarArchivo = $borrarArchivo;
+			mysqli_stmt_bind_param($stmtBorrarArchivo, "s", $borrarArchivo);
+			mysqli_stmt_execute($stmtBorrarArchivo);
+			mysqli_stmt_store_result($stmtEditarArchivo);
+
+			echoLine("Se ha borrado el archivo ".$borrarArchivo." exitosamente.");
+		}
+		else
+		{
+				echoLine("Error al borrar archivo ".$borrarArchivo);
+		}
+
+	}
+	else
+	{
+		$editarArchivo = "No se ha seleccionado ningun archivo.";
+	}
+}
 
 //Manejo de sitio
 //1. Si la sesion es valida, cargar credenciales de usuario 
