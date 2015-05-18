@@ -35,7 +35,7 @@ else if($_POST['submitEditarArchivo'] == "Actualizar Archivo" && validarSesion()
 	$editarArchivo = $_POST['nombreOriginal'];
 	$editarNombre = $_POST['editarNombre'];
 	$editarDescr = $_POST['editarDescr'];
-	if($_POST['listaVisib'] = "publico")
+	if($_POST['listaVisib'] == "publico")
 	{
 		$editarVisib = 0; 
 	}
