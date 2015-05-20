@@ -43,12 +43,6 @@ echo <<<OUT
 		 </div>
 	</div>
 
-	<div class="row">
-		<div class="col-xs-5 center-block"> 
-			<a href="crearUsuario.php" class="btn btn-default btn-block">Sign up</a>
-		 </div>
-	</div>
-
 	<div class="row-fluid">
 		<div class="col-xs-12 text-center">
 			<div class="footer text-center">
