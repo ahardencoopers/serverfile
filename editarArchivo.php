@@ -37,6 +37,7 @@ else if($_POST['submitEditarArchivo'] == "Actualizar Archivo" && validarSesion()
 	$editarArchivo = $_POST['nombreOriginal'];
 	$editarNombre = $_POST['editarNombre'];
 	$editarDescr = $_POST['editarDescr'];
+	$nombreCambiarUsuario = $_POST['cambiarUsuario'];
 	if($_POST['listaVisib'] == "publico")
 	{
 		$editarVisib = 0; 
@@ -47,25 +48,47 @@ else if($_POST['submitEditarArchivo'] == "Actualizar Archivo" && validarSesion()
 	}
 	$editarPath = $directorioActual.$editarNombre;
 
-	$queryEditarArchivo = "UPDATE Archivos SET nombre= ? , descr= ?, visib= ?, path = ? WHERE nombre= ?";
-
-	if(prepararQuery($queryEditarArchivo, $stmtEditarArchivo, $conexion))
+	$queryCambiarUsuarioId = "SELECT id FROM Usuarios WHERE nombre = ?";
+	if(prepararQuery($queryCambiarUsuarioId, $stmtCambiarUsuarioId, $conexion))
 	{
-		mysqli_stmt_bind_param($stmtEditarArchivo, "ssiss", $editarNombre, $editarDescr, $editarVisib, $editarPath, $editarArchivo);
-		mysqli_stmt_execute($stmtEditarArchivo);
-		echoLine("El archivo ".$editarArchivo." se ha actualizado exitosamente.");
-		
-		$stringComando = "mv ".$directorioActual.$editarArchivo." ".$directorioActual.$editarNombre;
-		exec($stringComando);
-
-		$editarArchivo = $editarNombre;
+		mysqli_stmt_bind_param($stmtCambiarUsuarioId, "s", $nombreCambiarUsuario);
+		mysqli_stmt_execute($stmtCambiarUsuarioId);
+		mysqli_stmt_bind_result($stmtCambiarUsuarioId, $idCambiarUsuario);
+		mysqli_stmt_fetch($stmtCambiarUsuarioId);
+		mysqli_stmt_store_result($stmtCambiarUsuarioId);
 	}
 	else
 	{
-		echoLine("Error al actualizar archivo.");
+		echoLine("Error al obtener id del nuevo usuario.");
 	}
 
-	mysqli_stmt_store_result($stmtEditarArchivo);
+	if(($idCambiarUsuario != "" && $idCambiarUsuario != 0) || $nombreUsuario == $nombreCambiarUsuario)
+	{
+		$queryEditarArchivo = "UPDATE Archivos SET creadorFk = ?, nombre= ? , descr= ?, visib= ?, path = ? WHERE nombre= ?";
+
+		if(prepararQuery($queryEditarArchivo, $stmtEditarArchivo, $conexion))
+		{
+			mysqli_stmt_bind_param($stmtEditarArchivo, "ississ", $idCambiarUsuario, $editarNombre, $editarDescr, 
+				$editarVisib, $editarPath, $editarArchivo);
+			mysqli_stmt_execute($stmtEditarArchivo);
+			echoLine("El archivo ".$editarArchivo." se ha actualizado exitosamente.");
+			
+			$stringComando = "mv ".$directorioActual.$editarArchivo." ".$directorioActual.$editarNombre;
+			exec($stringComando);
+
+			$editarArchivo = $editarNombre;
+			mysqli_stmt_store_result($stmtEditarArchivo);
+		}
+		else
+		{
+			echoLine("Error al actualizar archivo.");
+		}
+	}
+	else
+	{
+		echoLine('Ingrese un usuario valido en el campo "Cambiar dueño del archivo"');
+	}
+	
 }
 else if($_POST['submitBorrarArchivo'] == "Borrar Archivo" )
 {
