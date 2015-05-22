@@ -1,4 +1,4 @@
 # serverfile
-Web application for personal file uploading to remote server and dedicated customer browsing.
+Web application for file uploading to remote server.
 
 04/03/2015
