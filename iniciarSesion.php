@@ -25,7 +25,7 @@ $conexion = conectarDb();
 $arrTemp = $_POST;
 $seguirIniciandoSesion = false;
 
-if(!hayVacios($arrTemp))
+if($_POST['submitUsuario'] == "Log in" && !hayVacios($arrTemp))
 {
         //Usar la funcion convertirArreglo
         //para cargar los datos de $_POST a un arreglo
@@ -61,10 +61,6 @@ if(!hayVacios($arrTemp))
 		header("Location: ".$url);
 		exit;
 	}
-}
-else
-{
-	echoLine("Forma incompleta");
 }
 
 //Abrir encabezado de body y html.
